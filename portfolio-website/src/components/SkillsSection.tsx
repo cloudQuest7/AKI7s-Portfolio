@@ -1,6 +1,6 @@
 'use client';
 
-import { motion,  useMotionValue, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { 
   SiSharp, SiUnity, SiGamemaker, 
@@ -14,7 +14,7 @@ import { VscCode } from 'react-icons/vsc';
 
 interface Skill {
   name: string;
-  icon: any;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   category: string;
   level: 'Expert' | 'Advanced' | 'Intermediate';
 }
@@ -257,19 +257,15 @@ const MovingBanner = () => {
   );
 };
 
-const SkillsSection = () => {
-  const categories = Array.from(new Set(skills.map(skill => skill.category)));
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+export default function SkillsSection() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
+  const categories = Array.from(new Set(skills.map(skill => skill.category)));
 
   return (
     <section 
       id="skills" 
       className="py-20 px-4 relative overflow-hidden min-h-screen"
-      onMouseMove={handleMouseMove}
     >
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -308,6 +304,4 @@ const SkillsSection = () => {
       </div>
     </section>
   );
-};
-
-export default SkillsSection;
+}

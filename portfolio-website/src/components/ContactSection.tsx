@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaItchIo, FaEnvelope, FaDiscord } from 'react-icons/fa';
 
 interface ContactLink {
@@ -181,18 +181,6 @@ const RetroContactForm = () => {
 };
 
 const ContactSection = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState('default');
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
     <section id="contact" className="min-h-screen relative overflow-hidden py-20 px-4">
       {/* Enhanced Background Elements */}

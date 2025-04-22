@@ -137,7 +137,7 @@ const HeroSection = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [controls, characters.length, fullText]);
 
   return (
     <motion.div
