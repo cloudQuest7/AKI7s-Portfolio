@@ -28,7 +28,7 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const positionRef = useRef(0);
-  const animationFrameIdRef = useRef<number>();
+  const animationFrameIdRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const slider = sliderRef.current;

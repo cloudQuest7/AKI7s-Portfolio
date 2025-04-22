@@ -65,7 +65,7 @@ const AboutSection = () => {
               Quest Log: The Journey So Far
             </h3>
             <p className="text-gray-300 leading-relaxed">
-            Greetings, fellow adventurer! I'm a Apprentice Game Developer and Web Sorcerer, wielding the mighty powers of the Unity Engine and the enchanted MERN stack.
+            Greetings, fellow adventurer! I&apos;m a Apprentice Game Developer and Web Sorcerer, wielding the mighty powers of the Unity Engine and the enchanted MERN stack.
 
 My journey began in the pixelated realms of Unity, where I forged my skills in C# and brought interactive 2D and 3D worlds to life. Along the way, I delved into the arcane arts of web development, mastering MongoDB, Express.js, React, and Node.js to build dynamic, full-stack applications with seamless user experiences.
             </p>
