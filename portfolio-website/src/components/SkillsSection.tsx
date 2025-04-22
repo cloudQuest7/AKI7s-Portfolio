@@ -258,8 +258,6 @@ const MovingBanner = () => {
 };
 
 export default function SkillsSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-
   const categories = Array.from(new Set(skills.map(skill => skill.category)));
 
   return (
