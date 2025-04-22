@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useAnimation, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion,  useMotionValue, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { 
   SiSharp, SiUnity, SiGamemaker, 
   SiJavascript, SiPython, SiCplusplus,
