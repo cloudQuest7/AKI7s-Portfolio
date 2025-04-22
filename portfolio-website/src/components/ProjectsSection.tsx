@@ -1,6 +1,6 @@
 'use client';
 
-import { useState} from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGamepad, FaCode, FaGithub, FaExternalLinkAlt, FaTimes, FaTools } from 'react-icons/fa';
 import Image from 'next/image';
@@ -156,7 +156,6 @@ const projects: Project[] = [
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState<'all' | 'game' | 'web'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [modalAnimation, setModalAnimation] = useState<'enter' | 'exit'>('enter');
   const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number }>>([]);
 
   const categories = [
@@ -174,10 +173,8 @@ const ProjectsSection = () => {
   };
 
   const closeModal = () => {
-    setModalAnimation('exit');
     setTimeout(() => {
       setSelectedProject(null);
-      setModalAnimation('enter');
     }, 300);
   };
 

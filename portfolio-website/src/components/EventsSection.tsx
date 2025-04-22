@@ -77,7 +77,7 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
               priority={index < 6} // Prioritize loading first 6 images
-              onError={(e) => {
+              onError={() => {
                 console.error(`Error loading image: ${event.image}`);
               }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
