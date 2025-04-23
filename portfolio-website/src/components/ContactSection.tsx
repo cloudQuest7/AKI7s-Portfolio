@@ -6,8 +6,8 @@ import { FaGithub, FaLinkedin, FaTwitter, FaItchIo, FaEnvelope, FaDiscord } from
 
 // Particle component
 const Particle = ({ index }: { index: number }) => {
-  const randomDelay = Math.random() * 5;
-  const randomDuration = 15 + Math.random() * 30;
+  const randomDelay = index * 0.2 + Math.random() * 2;
+  const randomDuration = 15 + (index % 3) * 5;
   
   return (
     <motion.div
