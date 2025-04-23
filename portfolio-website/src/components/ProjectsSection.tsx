@@ -145,7 +145,7 @@ const projects: Project[] = [
     description: "A Web app to share food with people in need. Users can post food items and request food.",
     category: "web",
     image: "/images/web5.jpg",
-    technologies: ["Godot", "GDScript", "Aseprite"],
+    technologies: ["HTML| CSS", "Node | Express", "MongoDB"],
     links: {
       github: "https://github.com/yourusername/pixel-dungeon",
       live: "https://itch.io/yourusername/pixel-dungeon"

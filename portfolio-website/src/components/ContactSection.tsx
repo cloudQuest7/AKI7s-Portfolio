@@ -4,6 +4,56 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaItchIo, FaEnvelope, FaDiscord } from 'react-icons/fa';
 
+// Particle component
+const Particle = ({ index }: { index: number }) => {
+  const randomDelay = Math.random() * 5;
+  const randomDuration = 15 + Math.random() * 30;
+  
+  return (
+    <motion.div
+      className="absolute w-1 h-1 bg-[#1f6feb]/20 rounded-full"
+      style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+      }}
+      animate={{
+        y: [0, -20, 0],
+        x: [0, Math.random() * 40 - 20, 0],
+        opacity: [0, 1, 0],
+        scale: [0, 1.5, 0],
+      }}
+      transition={{
+        duration: randomDuration,
+        delay: randomDelay,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+    />
+  );
+};
+
+// Wave effect component
+const WaveEffect = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute w-[200%] h-[200%] top-[-50%] left-[-50%]"
+        style={{
+          background: "radial-gradient(circle at center, #1f6feb05 0%, transparent 60%)",
+        }}
+        animate={{
+          rotate: 360
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+    </div>
+  );
+};
+
 interface ContactLink {
   name: string;
   icon: React.ElementType;
@@ -222,18 +272,56 @@ const RetroContactForm = () => {
   );
 };
 
+// FloatingCharacter component
+const FloatingCharacter = () => {
+  return (
+    <motion.div
+      className="absolute right-10 top-20 w-16 h-16 pointer-events-none"
+      animate={{
+        y: [0, -20, 0],
+        rotate: [0, 5, -5, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      <div className="relative w-full h-full">
+        <div className="absolute inset-0 bg-[#1f6feb]/20 rounded-full blur-lg animate-pulse" />
+        <div className="relative w-full h-full bg-gradient-to-br from-[#1f6feb] to-[#6e40c9] rounded-full" />
+        <div className="absolute inset-2 bg-[#0d1117] rounded-full">
+          <div className="w-full h-full flex items-center justify-center text-[#1f6feb]">
+            👾
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const ContactSection = () => {
   return (
     <section id="contact" className="min-h-screen relative overflow-hidden py-20 px-4">
       <div className="absolute inset-0 bg-[#0d1117]">
+        {/* Enhanced background effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#1f6feb]/5 via-transparent to-[#6e40c9]/5" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#1f6feb10_0%,_transparent_50%)]" />
         
-        {[...Array(5)].map((_, i) => (
+        {/* Wave effect */}
+        <WaveEffect />
+        
+        {/* Particles */}
+        {[...Array(20)].map((_, i) => (
+          <Particle key={i} index={i} />
+        ))}
+
+        {/* Enhanced scan lines */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute h-[1px] w-full bg-gradient-to-r from-transparent via-[#1f6feb]/20 to-transparent"
-            style={{ top: `${20 + i * 15}%` }}
+            style={{ top: `${10 + i * 12}%` }}
             animate={{
               x: ['-100%', '100%'],
               opacity: [0, 1, 0],
@@ -246,9 +334,23 @@ const ContactSection = () => {
             }}
           />
         ))}
+
+        {/* Matrix-like vertical scan effect */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1f6feb]/5 to-transparent"
+          animate={{
+            y: ['-100%', '100%']
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: 'linear'
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto relative">
+        <FloatingCharacter />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -265,12 +367,12 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
-          <div className="lg:w-2/3">
+        <div className="flex flex-col-reverse lg:flex-row gap-6 items-start justify-center">
+          <div className="w-full lg:w-2/3">
             <RetroContactForm />
           </div>
 
-          <div className="lg:w-1/3 space-y-4 mt-4 lg:mt-8">
+          <div className="w-full lg:w-1/3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-3 mt-4 lg:mt-8">
             {contactLinks.map((link, index) => (
               <motion.a
                 key={link.name}
@@ -284,19 +386,19 @@ const ContactSection = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="relative p-4 bg-[#161b22] border border-[#30363d] rounded-xl overflow-hidden 
+                <div className="relative p-3 lg:p-4 bg-[#161b22] border border-[#30363d] rounded-xl overflow-hidden 
                               group-hover:border-[#1f6feb]/40 transition-all duration-300">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#1f6feb]/5 to-transparent 
                                 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#1f6feb]/0 to-[#1f6feb]/10 
                                 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  <div className="relative z-10 flex items-center gap-4">
-                    <link.icon className={`w-6 h-6 text-gray-400 transition-colors duration-300 ${link.color}`} />
-                    <span className="text-gray-200 font-medium">{link.name}</span>
+                  <div className="relative z-10 flex items-center gap-2 lg:gap-4">
+                    <link.icon className={`w-5 h-5 lg:w-6 lg:h-6 text-gray-400 transition-colors duration-300 ${link.color}`} />
+                    <span className="text-gray-200 text-sm lg:text-base font-medium">{link.name}</span>
                     
                     <motion.span
-                      className="ml-auto text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="ml-auto text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-block"
                       initial={{ x: -10 }}
                       whileHover={{ x: 0 }}
                     >
@@ -306,23 +408,15 @@ const ContactSection = () => {
                 </div>
               </motion.a>
             ))}
-
-            <motion.div
-              className="hidden lg:block absolute right-0 bottom-0 w-32 h-32"
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1f6feb]/20 to-transparent blur-2xl" />
-            </motion.div>
           </div>
         </div>
+      </div>
+
+      {/* Copyright Footer */}
+      <div className="absolute bottom-0 left-0 right-0 py-4 text-center text-gray-400 bg-[#0d1117]/80 backdrop-blur-sm border-t border-[#1f6feb]/20">
+        <p className="text-sm font-mono">
+          Copyright © {new Date().getFullYear()} | Developed with 💙 by Anjali Jayakumar | All Rights Reserved
+        </p>
       </div>
     </section>
   );

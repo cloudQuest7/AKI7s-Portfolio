@@ -292,6 +292,103 @@ export default function SkillsSection() {
           ))}
         </div>
 
+        {/* GitHub Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 space-y-8"
+        >
+          <h3 className="text-2xl font-bold text-center mb-8">
+            <span className="bg-gradient-to-r from-[#1f6feb] via-[#6e40c9] to-[#1f6feb] bg-clip-text text-transparent">
+              GitHub Activity
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* GitHub Stats Card */}
+            <motion.div
+              className="relative group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
+          <img
+            src={`https://github-readme-stats.vercel.app/api?username=cloudQuest7&show_icons=true&hide_border=true&theme=github_dark&bg_color=161b22&icon_color=6e40c9&title_color=6e40c9&text_color=ffffff&hide_title=true`}
+            alt="GitHub Stats"
+            className="w-full h-auto"
+          />
+              </div>
+            </motion.div>
+
+            {/* GitHub Streak Stats */}
+            <motion.div
+              className="relative group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
+          <img
+            src={`https://github-readme-streak-stats.herokuapp.com?user=cloudQuest7&theme=github-dark-blue&hide_border=true&background=161b22&stroke=6e40c9&ring=6e40c9&fire=6e40c9&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=6e40c9&sideLabels=6e40c9&dates=ffffff`}
+            alt="GitHub Streak Stats"
+            className="w-full h-auto"
+          />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* GitHub Contribution Calendar */}
+          <motion.div
+            className="mt-8 relative group"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+            <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg p-6 overflow-hidden">
+              {/* Glowing corners */}
+              <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-[#2D1141]/20 to-transparent opacity-50" />
+              <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-[#6e40c9]/20 to-transparent opacity-50" />
+              
+              {/* Calendar title */}
+              <div className="mb-4 flex items-center justify-between">
+          <h4 className="text-lg font-semibold bg-gradient-to-r from-purple-400 to-[#6e40c9] bg-clip-text text-transparent">
+            GitHub Activity
+          </h4>
+          <span className="text-sm text-gray-400">
+            365 Days of Contributions
+          </span>
+              </div>
+              
+              {/* Activity calendar */}
+              <div className="relative group/calendar">
+          {/* GitHub contribution tiles */}
+          <img
+            src="https://ghchart.rshah.org/2D1141/cloudQuest7"
+            alt="GitHub Contribution Calendar"
+            className="w-full h-auto filter brightness-110"
+          />
+          
+          {/* Hover glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/5 via-[#6e40c9]/5 to-[#2D1141]/5 opacity-0 group-hover/calendar:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Animated scan line */}
+              <motion.div
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#6e40c9]/5 to-transparent"
+          initial={{ y: '-100%' }}
+          animate={{ y: '100%' }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: 'linear'
+          }}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+
         <MovingBanner />
       </div>
 

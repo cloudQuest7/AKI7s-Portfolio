@@ -84,7 +84,7 @@ My journey began in the pixelated realms of Unity, where I forged my skills in C
           >
             <SkillCard title="Main Class" items={["Game Developer", "Full Stack Dev", "UX"]} />
             <SkillCard title="Skill Tree" items={["Unity", "GameMaker", "C++", "C#"]} />
-            <SkillCard title="Side Quests" items={["WebGL", "Website", "VR Development"]} />
+            <SkillCard title="Side Quests" items={["WebGL", "Website", "Creativity"]} />
             <SkillCard title="Party Skills" items={["Quick Learner", "Agile", "Git Mastery"]} />
           </motion.div>
         </div>

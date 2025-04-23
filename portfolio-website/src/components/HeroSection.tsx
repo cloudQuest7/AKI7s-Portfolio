@@ -7,7 +7,36 @@ import { FaGamepad, FaCode, FaLaptop, FaGithub, FaLinkedin } from 'react-icons/f
 import { GiRetroController, GiArtificialIntelligence } from 'react-icons/gi';
 import Image from 'next/image';
 
-// Left Floating Tech Element
+// Cosmic Star effect
+const CosmicStar = ({ index }: { index: number }) => {
+  const size = Math.random() * 3 + 1;
+  const duration = Math.random() * 2 + 2;
+  
+  return (
+    <motion.div
+      className="absolute bg-white rounded-full"
+      style={{
+        width: size,
+        height: size,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        filter: 'blur(0.5px)',
+      }}
+      animate={{
+        scale: [0, 1.5, 0],
+        opacity: [0, 0.8, 0],
+      }}
+      transition={{
+        duration: duration,
+        repeat: Infinity,
+        delay: index * 0.3,
+        ease: "easeInOut"
+      }}
+    />
+  );
+};
+
+// Left Floating Tech Element with enhanced glow
 const LeftFloatingElement = () => {
   return (
     <motion.div
@@ -37,7 +66,7 @@ const LeftFloatingElement = () => {
       }}
     >
       <motion.div
-        className="relative w-full h-full"
+        className="relative w-full h-full cosmic-glow"
         animate={{ rotate: [0, -360] }}
         transition={{
           duration: 25,
@@ -52,7 +81,7 @@ const LeftFloatingElement = () => {
   );
 };
 
-// Single Game Element Component (Right Side)
+// Floating Game Element Component
 const FloatingGameElement = () => {
   return (
     <motion.div
@@ -82,7 +111,7 @@ const FloatingGameElement = () => {
       }}
     >
       <motion.div
-        className="relative w-full h-full"
+        className="relative w-full h-full cosmic-glow"
         animate={{ rotate: [0, 360] }}
         transition={{
           duration: 20,
@@ -97,6 +126,94 @@ const FloatingGameElement = () => {
   );
 };
 
+// Interactive Profile Card with enhanced effects
+const ProfileCard = () => {
+  return (
+    <motion.div
+      className="relative max-w-md mx-auto w-full"
+      initial={{ x: 50, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <motion.div
+        className="relative aspect-square rounded-2xl overflow-hidden cosmic-glow"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Card Background with enhanced effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-purple-800/40
+                      backdrop-blur-sm border-4 border-purple-500/30 rounded-2xl cosmic-bg">
+          {/* Corner decorations */}
+          {[...Array(4)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-4 h-4 ${
+                i === 0 ? 'top-0 left-0 border-t-4 border-l-4' :
+                i === 1 ? 'top-0 right-0 border-t-4 border-r-4' :
+                i === 2 ? 'bottom-0 left-0 border-b-4 border-l-4' :
+                         'bottom-0 right-0 border-b-4 border-r-4'
+              } border-purple-400/60`}
+              animate={{
+                opacity: [0.4, 1, 0.4],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.5,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Profile Image Container */}
+        <div className="relative aspect-square p-6">
+          <motion.div
+            className="relative w-full h-full rounded-xl overflow-hidden 
+                    border-2 border-purple-500/30 bg-purple-950/30"
+            whileHover={{
+              boxShadow: "0 0 30px rgba(147,51,234,0.4)",
+            }}
+          >
+            <Image
+              src="/images/aki.jpg"
+              alt="Profile Picture"
+              fill
+              className="object-cover"
+              priority
+            />
+            
+            {/* Enhanced scanline effect */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-400/10 to-transparent"
+              animate={{
+                y: ["-100%", "200%"],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                y: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear"
+                },
+                opacity: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                  times: [0, 0.5, 1]
+                }
+              }}
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Main HeroSection component
 const HeroSection = () => {
   const [selectedCharacter, setSelectedCharacter] = useState(0);
   const [typedText, setTypedText] = useState("");
@@ -151,14 +268,18 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-purple-600/5" />
         
-        {/* Floating Tech Element */}
+        {/* Cosmic effects */}
+        {[...Array(30)].map((_, i) => (
+          <CosmicStar key={i} index={i} />
+        ))}
+        
         <LeftFloatingElement />
         <FloatingGameElement />
       </div>
 
       <div className="max-w-4xl mx-auto w-full relative z-10">
         <div className="grid md:grid-cols-2 gap-6 items-center">
-          {/* Left side - Main content */}
+          {/* Left side content */}
           <motion.div
             className="space-y-6 text-center md:text-left px-4 md:px-0"
             initial={{ x: -50, opacity: 0 }}
@@ -166,10 +287,10 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <motion.div className="mb-2">
-              <span className="text-purple-400 font-mono text-sm md:text-base inline-block">
+              <span className="text-white font-mono text-sm md:text-base inline-block">
                 {typedText}
                 <motion.span
-                  className="inline-block w-[2px] h-[14px] bg-purple-400 ml-[2px]"
+                  className="inline-block w-[2px] h-[14px] bg-white ml-[2px]"
                   animate={{ opacity: [1, 0] }}
                   transition={{
                     duration: 0.8,
@@ -242,65 +363,14 @@ const HeroSection = () => {
                 {/* Social Links */}
                 <motion.div className="flex gap-4 justify-center md:justify-start">
                   <SocialButton icon={<FaGithub />} href="https://github.com/cloudQuest7" />
-                  <SocialButton icon={<FaLinkedin />} href="www.linkedin.com/in/anjali-jayakumar-145902320" />
+                  <SocialButton icon={<FaLinkedin />} href="https://linkedin.com/in/anjali-jayakumar-145902320" />
                 </motion.div>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Right side - Pixel Art Profile Card */}
-          <motion.div
-            className="relative max-w-md mx-auto w-full"
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <motion.div
-              className="relative aspect-square rounded-2xl overflow-hidden"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Card Background with pixel art style border */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-purple-800/40
-                            backdrop-blur-sm border-4 border-purple-500/30 rounded-2xl
-                            shadow-[0_0_50px_rgba(168,85,247,0.3)]">
-                {/* Pixel corner decorations */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-purple-400/60" />
-                <div className="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-purple-400/60" />
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-purple-400/60" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-purple-400/60" />
-              </div>
-
-              {/* Profile Image Container */}
-              <div className="relative aspect-square p-6">
-                <div className="relative w-full h-full rounded-xl overflow-hidden 
-                              border-2 border-purple-500/30 bg-purple-950/30">
-                  <Image
-                    src="/images/aki.jpg"
-                    alt="Profile Picture"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-
-                {/* Scanline effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-400/5 to-transparent
-                            pointer-events-none"
-                  animate={{
-                    y: ["-100%", "200%"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
+          {/* Right side - Enhanced Profile Card */}
+          <ProfileCard />
         </div>
       </div>
     </motion.div>
