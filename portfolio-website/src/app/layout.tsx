@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import NavBar from '@/components/NavBar';
 import GalacticBackground from '@/components/GalacticBackground';
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <main className="pt-16 min-h-screen relative z-10">
           {children}
         </main>
+        <Analytics />
       </body>
     </html>
   );
