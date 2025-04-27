@@ -27,27 +27,42 @@ const events: Event[] = [
 const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; speed?: number }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const positionRef = useRef(0);
+  const positionRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | undefined>(undefined);
+  const previousTimeRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    const animate = () => {
+    const animate = (currentTime: number) => {
+      if (!previousTimeRef.current) {
+        previousTimeRef.current = currentTime;
+      }
+      
+      const deltaTime = Math.min(currentTime - previousTimeRef.current, 50);
+      previousTimeRef.current = currentTime;
+
       if (!isPaused) {
-        positionRef.current += direction * speed / 60;
-        if (positionRef.current > slider.scrollWidth / 2) {
+        const pixelsPerSecond = speed * 0.5;
+        const frameSpeed = (pixelsPerSecond * deltaTime) / 16.667;
+
+        positionRef.current += direction * frameSpeed;
+
+        if (direction > 0 && positionRef.current >= slider.scrollWidth / 2) {
           positionRef.current = 0;
-        } else if (positionRef.current < 0) {
+        } else if (direction < 0 && positionRef.current <= 0) {
           positionRef.current = slider.scrollWidth / 2;
         }
-        slider.style.transform = `translateX(${-positionRef.current}px)`;
+
+        slider.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`;
       }
+
       animationFrameIdRef.current = requestAnimationFrame(animate);
     };
 
     animationFrameIdRef.current = requestAnimationFrame(animate);
+
     return () => {
       if (animationFrameIdRef.current) {
         cancelAnimationFrame(animationFrameIdRef.current);
@@ -63,13 +78,13 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
     >
       <div
         ref={sliderRef}
-        className="flex gap-4 py-4 whitespace-nowrap transform w-fit"
+        className="flex gap-4 py-4 whitespace-nowrap transform w-fit will-change-transform slider-container"
       >
         {/* Double the events for seamless loop */}
         {[...events, ...events].map((event, index) => (
           <div
             key={`${event.id}-${index}`}
-            className="relative w-72 h-48 rounded-xl overflow-hidden group"
+            className="relative w-72 h-48 rounded-xl overflow-hidden group eventCard"
           >
             <Image
               src={event.image}
@@ -77,9 +92,6 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
               priority={index < 6} // Prioritize loading first 6 images
-              onError={() => {
-                console.error(`Error loading image: ${event.image}`);
-              }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
@@ -116,9 +128,9 @@ const EventsSection = () => {
         {/* Event Sliders */}
         <div className="space-y-8">
           {/* First row - moves right */}
-          <InfiniteSlider direction={1} speed={15} />
+          <InfiniteSlider direction={1} speed={5} />
           {/* Second row - moves left */}
-          <InfiniteSlider direction={-1} speed={18} />
+          <InfiniteSlider direction={-1} speed={5} />
         </div>
       </div>
     </section>

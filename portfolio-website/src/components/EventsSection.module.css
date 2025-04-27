@@ -1,0 +1,25 @@
+.sliderContainer {
+  overflow: hidden;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  white-space: nowrap;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.sliderItem {
+  position: relative;
+  width: 18rem;
+  height: 12rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
