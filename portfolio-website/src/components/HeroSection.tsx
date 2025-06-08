@@ -225,7 +225,7 @@ const HeroSection = () => {
   const characters = [
     { role: "Game Developer", icon: <FaGamepad className="w-6 h-6" /> },
     { role: "Web Developer", icon: <FaCode className="w-6 h-6" /> },
-    { role: "Tech Enthusiast", icon: <FaLaptop className="w-6 h-6" /> }
+    { role: "Pixel Artist", icon: <FaLaptop className="w-6 h-6" /> }
   ];
 
   useEffect(() => {
@@ -345,7 +345,7 @@ const HeroSection = () => {
                     View Projects
                   </motion.a>
                   <motion.a
-                    href="https://drive.google.com/file/d/1X-IGSdXYlviSUs2u3vq2o0ANiXefuVPW/view"
+                    href="https://drive.google.com/file/d/1TTyx-i0Ifj3Umd-cs6SsAYER5K0VTsj-/view"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 
