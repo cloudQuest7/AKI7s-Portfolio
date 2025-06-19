@@ -255,8 +255,7 @@ const ProjectsSection = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <AnimatePresence mode="wait">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-5xl mx-auto">          <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}

@@ -308,8 +308,7 @@ const HeroSection = () => {
             </motion.h1>
 
             {/* Role switcher */}
-            <motion.div className="relative h-16 mb-8">
-              <AnimatePresence mode="wait">
+            <motion.div className="relative h-16 mb-8">              <AnimatePresence>
                 <motion.div
                   key={selectedCharacter}
                   initial={{ y: 20, opacity: 0 }}

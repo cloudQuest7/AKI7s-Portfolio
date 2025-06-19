@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
+import styles from './EventsSection.module.css';
 
 // Event interface
 interface Event {
@@ -24,13 +25,14 @@ const events: Event[] = [
 ];
 
 // Slider component for each row
-const InfiniteSlider = ({ direction = 1, speed = 17 }: { direction?: number; speed?: number }) => {
+const InfiniteSlider = ({ direction = 1, speed =60  }: { direction?: number; speed?: number }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const positionRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | undefined>(undefined);
   const previousTimeRef = useRef<number | undefined>(undefined);
   const [sliderWidth, setSliderWidth] = useState(0);
+  const transitionRef = useRef<number>(1);
 
   // Update slider width on mount and resize
   useEffect(() => {
@@ -55,22 +57,27 @@ const InfiniteSlider = ({ direction = 1, speed = 17 }: { direction?: number; spe
       }
       
       const deltaTime = Math.min(currentTime - previousTimeRef.current, 50);
-      previousTimeRef.current = currentTime;
-
-      if (!isPaused) {
+      previousTimeRef.current = currentTime;      if (!isPaused) {
         // Smoother speed calculation
-        const pixelsPerSecond = speed * 0.8;
+        const pixelsPerSecond = speed * 0.4; // Slightly slower speed for better clarity
         const frameSpeed = (pixelsPerSecond * deltaTime) / 16.667;
         
-        positionRef.current = (positionRef.current + direction * frameSpeed) % sliderWidth;
+        // Smooth transition when pausing/resuming
+        transitionRef.current = Math.min(1, transitionRef.current + 0.015);
+        const easedSpeed = frameSpeed * transitionRef.current;
+        
+        positionRef.current = (positionRef.current + direction * easedSpeed) % sliderWidth;
         
         // Handle negative positions
         if (positionRef.current < 0) {
           positionRef.current = sliderWidth + positionRef.current;
         }
 
-        // Use transform3d for better performance
+        // Use transform3d without blur effect
         slider.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`;
+      } else {
+        // Smooth transition when pausing
+        transitionRef.current = Math.max(0, transitionRef.current - 0.015);
       }
 
       animationFrameIdRef.current = requestAnimationFrame(animate);
@@ -85,29 +92,33 @@ const InfiniteSlider = ({ direction = 1, speed = 17 }: { direction?: number; spe
     };
   }, [direction, speed, isPaused, sliderWidth]);
 
-  return (
-    <div 
-      className="overflow-hidden relative"
+  return (    <div 
+      className="overflow-hidden relative group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div
+      {/* Edge gradients for smooth transition effect */}
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0d1117] to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0d1117] to-transparent z-10" />
+        <div
         ref={sliderRef}
-        className="flex gap-4 py-4 whitespace-nowrap transform w-fit will-change-transform slider-container"
+        className={`flex gap-6 py-4 whitespace-nowrap transform w-fit will-change-transform transition-[filter] duration-300 ${styles.sliderContainer}`}
       >
         {/* Double the events for seamless loop */}
         {[...events, ...events].map((event, index) => (
           <div
             key={`${event.id}-${index}`}
-            className="relative w-72 h-48 rounded-xl overflow-hidden group eventCard"
+            className="relative w-72 h-48 rounded-xl overflow-hidden group/card shadow-lg shadow-purple-500/5 transition-transform duration-300 hover:scale-[1.02]"
           >
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50 z-[1] opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
             <Image
               src={event.image}
               alt={event.alt}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              className="object-cover transition-all duration-500 group-hover/card:scale-110 group-hover/card:brightness-110"
               priority={index < 6} // Prioritize loading first 6 images
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={90}
             />
           </div>
         ))}
@@ -142,10 +153,9 @@ const EventsSection = () => {
 
         {/* Event Sliders */}
         <div className="space-y-8">
-          {/* First row - moves right */}
-          <InfiniteSlider direction={1} speed={5} />
+          {/* First row - moves right */}          <InfiniteSlider direction={1} speed={2} />
           {/* Second row - moves left */}
-          <InfiniteSlider direction={-1} speed={5} />
+          <InfiniteSlider direction={-1} speed={2} />
         </div>
       </div>
     </section>
