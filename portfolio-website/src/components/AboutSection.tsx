@@ -42,7 +42,7 @@ const AboutSection = () => {
             <StatsItem
               icon={<FaDiceD20 className="w-8 h-8" />}
               title="Hackathons"
-              value="8+"
+              value="6+"
             />
             <StatsItem
               icon={<FaLaptopCode className="w-8 h-8" />}
@@ -65,12 +65,14 @@ const AboutSection = () => {
               Quest Log: The Journey So Far
             </h3>
             <p className="text-gray-300 leading-relaxed">
-            Greetings, fellow adventurer! I&apos;m a Apprentice Game Developer and Web Sorcerer, wielding the mighty powers of the Unity Engine and the enchanted MERN stack.
+            Greetings, I&apos;m an enthusiastic Game Developer and Full Stack Web Developer, on a mission to blend storytelling, interactivity, and clean code. I&apos;ve been exploring the realms of Unity and MERN stack to build everything from immersive games to real-world web applications.
 
-My journey began in the pixelated realms of Unity, where I forged my skills in C# and brought interactive 2D and 3D worlds to life. Along the way, I delved into the arcane arts of web development, mastering MongoDB, Express.js, React, and Node.js to build dynamic, full-stack applications with seamless user experiences.
+            In game dev, I specialize in designing 2D/3D experiences using Unity and C# and bringing life to scenes with creative mechanics and UI/UX. On the flip side, my web dev journey spans full-stack apps using MongoDB, Express.js, React, and Node.js, with a strong focus on building responsive and seamless user experiences.
             </p>
             <p className="text-gray-300 leading-relaxed">
-            From crafting addictive gameplay loops and interactive UIs to conjuring responsive web dashboards and real-time features, I thrive on creating immersive digital realms. My specialties include Programming, Game Dev, intuitive UX and Backend. I’m always ready for the next epic dev quest.
+           I love creating digital experiences that feel alive — whether it&apos;s a tight platformer or a feature-rich web app. I&apos;ve participated in multiple hackathons, shipped several prototypes, and keep experimenting with new tools, ideas, and design styles.
+
+          Currently, I&apos;m leveling up further by learning AI/ML and diving deep into Pixel Art to eventually create and design all my own assets.
             </p>
           </motion.div>
 
@@ -82,10 +84,10 @@ My journey began in the pixelated realms of Unity, where I forged my skills in C
             viewport={{ once: true }}
             className="grid grid-cols-2 gap-4"
           >
-            <SkillCard title="Main Class" items={["Game Developer", "Full Stack Dev", "UX"]} />
-            <SkillCard title="Skill Tree" items={["Unity", "GameMaker", "C++", "C#"]} />
-            <SkillCard title="Side Quests" items={["WebGL", "Website", "Creativity"]} />
-            <SkillCard title="Party Skills" items={["Quick Learner", "Agile", "Git Mastery"]} />
+            <SkillCard title="Main Class" items={["Game Developer", "Full Stack Dev", "Pixel Artist"]} />
+            <SkillCard title="Skill Tree" items={["Unity", "Git & GitHub", "C++", "C#"]} />
+            <SkillCard title="Side Quests" items={["Pixel Art & Asset Design", "Violin 🎻", "Creativity"]} />
+            <SkillCard title="Party Skills" items={["Quick Learner", "Hackathon-Ready 💥", "Git Mastery"]} />
           </motion.div>
         </div>
       </div>
