@@ -7,14 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
-  "dependencies": {
-<<<<<<< HEAD
+  },  "dependencies": {    
     "@vercel/speed-insights": "^1.2.0",
-    "next": "14.1.0",
-=======
     "next": "15.2.4",
->>>>>>> 20fc5be295e8d9d8ac0dd77961ed68d7632a310d
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0"
