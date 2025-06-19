@@ -7,8 +7,26 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/webp'],
+    minimumCacheTTL: 60,
+  },
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['framer-motion'],
+  },
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  poweredByHeader: false,
+  compress: true,
+  reactStrictMode: true,
+  pageExtensions: ['ts', 'tsx'],
+  // Enable HTTP/2 and other performance features
+  future: {
+    webpack5: true,
   },
 }
 

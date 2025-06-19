@@ -24,16 +24,30 @@ const events: Event[] = [
 ];
 
 // Slider component for each row
-const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; speed?: number }) => {
+const InfiniteSlider = ({ direction = 1, speed = 17 }: { direction?: number; speed?: number }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const positionRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | undefined>(undefined);
   const previousTimeRef = useRef<number | undefined>(undefined);
+  const [sliderWidth, setSliderWidth] = useState(0);
+
+  // Update slider width on mount and resize
+  useEffect(() => {
+    const updateWidth = () => {
+      if (sliderRef.current) {
+        setSliderWidth(sliderRef.current.scrollWidth / 2);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
   useEffect(() => {
     const slider = sliderRef.current;
-    if (!slider) return;
+    if (!slider || !sliderWidth) return;
 
     const animate = (currentTime: number) => {
       if (!previousTimeRef.current) {
@@ -44,17 +58,18 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
       previousTimeRef.current = currentTime;
 
       if (!isPaused) {
-        const pixelsPerSecond = speed * 0.5;
+        // Smoother speed calculation
+        const pixelsPerSecond = speed * 0.8;
         const frameSpeed = (pixelsPerSecond * deltaTime) / 16.667;
-
-        positionRef.current += direction * frameSpeed;
-
-        if (direction > 0 && positionRef.current >= slider.scrollWidth / 2) {
-          positionRef.current = 0;
-        } else if (direction < 0 && positionRef.current <= 0) {
-          positionRef.current = slider.scrollWidth / 2;
+        
+        positionRef.current = (positionRef.current + direction * frameSpeed) % sliderWidth;
+        
+        // Handle negative positions
+        if (positionRef.current < 0) {
+          positionRef.current = sliderWidth + positionRef.current;
         }
 
+        // Use transform3d for better performance
         slider.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`;
       }
 
@@ -68,7 +83,7 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
         cancelAnimationFrame(animationFrameIdRef.current);
       }
     };
-  }, [direction, speed, isPaused]);
+  }, [direction, speed, isPaused, sliderWidth]);
 
   return (
     <div 
