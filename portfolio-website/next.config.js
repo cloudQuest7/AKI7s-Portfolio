@@ -16,7 +16,6 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['framer-motion'],
   },
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
@@ -24,10 +23,6 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx'],
-  // Enable HTTP/2 and other performance features
-  future: {
-    webpack5: true,
-  },
 }
 
 module.exports = nextConfig
