@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState} from 'react';
+import { useIntersectionObserver } from '@/utils/useIntersectionObserver';
 
 // Event interface
 interface Event {
@@ -30,6 +31,8 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
   const positionRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | undefined>(undefined);
   const previousTimeRef = useRef<number | undefined>(undefined);
+  const {isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+  // const { elementRef, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -43,9 +46,12 @@ const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; spe
       const deltaTime = Math.min(currentTime - previousTimeRef.current, 50);
       previousTimeRef.current = currentTime;
 
-      if (!isPaused) {
+      if (!isPaused && isIntersecting) {
         const pixelsPerSecond = speed * 0.5;
         const frameSpeed = (pixelsPerSecond * deltaTime) / 16.667;
+        
+        // Use transform instead of marginLeft for better performance
+        const newPosition = positionRef.current + (direction * frameSpeed);
 
         positionRef.current += direction * frameSpeed;
 
