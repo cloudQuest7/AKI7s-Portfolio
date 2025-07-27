@@ -20,14 +20,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-[#0d1117] text-gray-100 min-h-screen relative`}>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="msapplication-TileColor" content="#0d1117" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className={`${inter.className} bg-[#0d1117] text-gray-100 min-h-screen relative antialiased`}>
         {/* Galactic background with higher z-index than -10 */}
         <GalacticBackground />
         <NavBar />
         <main className="pt-16 min-h-screen relative z-10">
           {children}
         </main>
+        <div id="portal-root" />
         <Analytics />
         <SpeedInsights />
       </body>

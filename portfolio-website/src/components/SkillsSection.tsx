@@ -326,7 +326,7 @@ export default function SkillsSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
-           <Image
+          <Image
             src={`https://github-readme-stats.vercel.app/api?username=cloudQuest7&show_icons=true&hide_border=true&theme=github_dark&bg_color=161b22&icon_color=6e40c9&title_color=6e40c9&text_color=ffffff&hide_title=true&cache_seconds=1800`}
             alt="GitHub Stats"
             width={495}
@@ -346,8 +346,8 @@ export default function SkillsSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
-           <Image
-            src={`https://github-readme-streak-stats.herokuapp.com?user=cloudQuest7&theme=github-dark-blue&hide_border=true&background=161b22&stroke=6e40c9&ring=6e40c9&fire=6e40c9&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=6e40c9&sideLabels=6e40c9&dates=ffffff&cache_seconds=1800`}
+          <Image
+            src={`https://github-readme-streak-stats.herokuapp.com?user=cloudQuest7&theme=github-dark-blue&hide_border=true&background=161b22&stroke=6e40c9&ring=6e40c9&fire=6e40c9&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=6e40c9&sideLabels=6e40c9&dates=ffffff`}
             alt="GitHub Streak Stats"
             width={495}
             height={195}
