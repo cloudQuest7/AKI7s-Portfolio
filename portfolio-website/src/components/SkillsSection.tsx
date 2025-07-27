@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useState } from 'react';
 import { 
   SiSharp, SiUnity, SiGamemaker, 
@@ -8,7 +9,8 @@ import {
   SiReact, SiNextdotjs, SiHtml5, 
   SiCss3, SiTailwindcss, SiNodedotjs,
   SiExpress, SiMongodb, SiPostgresql,
-  SiGit, SiFirebase
+  SiGit, SiFirebase, SiTypescript, SiSupabase, SiGreensock, 
+  SiSanity, SiContentful, SiFigma,
 } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
 
@@ -24,27 +26,37 @@ const skills: Skill[] = [
   { name: 'C#', icon: SiSharp, category: 'Languages', level: 'Expert' },
   { name: 'Unity', icon: SiUnity, category: 'Game Dev', level: 'Expert' },
   { name: 'GameMaker', icon: SiGamemaker, category: 'Game Dev', level: 'Advanced' },
+  { name: 'Unity', icon: SiUnity, category: 'Game Dev', level: 'Intermediate' },
+  { name: 'GameMaker', icon: SiGamemaker, category: 'Game Dev', level: 'Intermediate' },
   { name: 'JavaScript', icon: SiJavascript, category: 'Languages', level: 'Expert' },
   { name: 'Python', icon: SiPython, category: 'Languages', level: 'Advanced' },
   { name: 'C++', icon: SiCplusplus, category: 'Languages', level: 'Intermediate' },
-  
+  { name: 'TypeScript', icon: SiTypescript, category: 'Languages', level: 'Intermediate' },
+
+
   // Web Development
   { name: 'React', icon: SiReact, category: 'Frontend', level: 'Expert' },
   { name: 'Next.js', icon: SiNextdotjs, category: 'Frontend', level: 'Advanced' },
   { name: 'HTML5', icon: SiHtml5, category: 'Frontend', level: 'Expert' },
   { name: 'CSS3', icon: SiCss3, category: 'Frontend', level: 'Expert' },
   { name: 'Tailwind', icon: SiTailwindcss, category: 'Frontend', level: 'Advanced' },
-  
+  { name: 'GSAP', icon: SiGreensock, category: 'Frontend', level: 'Intermediate' },
+
   // Backend & Database
   { name: 'Node.js', icon: SiNodedotjs, category: 'Backend', level: 'Advanced' },
   { name: 'Express', icon: SiExpress, category: 'Backend', level: 'Advanced' },
   { name: 'MongoDB', icon: SiMongodb, category: 'Backend', level: 'Intermediate' },
   { name: 'PostgreSQL', icon: SiPostgresql, category: 'Backend', level: 'Intermediate' },
-  
+  { name: 'CMS', icon: SiContentful, category: 'Backend', level: 'Intermediate' },
+
   // Tools
   { name: 'Git', icon: SiGit, category: 'Tools', level: 'Expert' },
   { name: 'VS Code', icon: VscCode, category: 'Tools', level: 'Expert' },
   { name: 'Firebase', icon: SiFirebase, category: 'Tools', level: 'Advanced' },
+  { name: 'Firebase', icon: SiFirebase, category: 'Tools', level: 'Intermediate' },
+  { name: 'Supabase', icon: SiSupabase, category: 'Tools', level: 'Intermediate' },
+  { name: 'Sanity.io', icon: SiSanity, category: 'Backend', level: 'Intermediate' },
+  { name: 'Figma', icon: SiFigma, category: 'Tools', level: 'Intermediate' },
 ];
 
 const SkillCard = ({ category, skills }: { category: string; skills: Skill[] }) => {
@@ -314,10 +326,14 @@ export default function SkillsSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
-          <img
-            src={`https://github-readme-stats.vercel.app/api?username=cloudQuest7&show_icons=true&hide_border=true&theme=github_dark&bg_color=161b22&icon_color=6e40c9&title_color=6e40c9&text_color=ffffff&hide_title=true`}
+           <Image
+            src={`https://github-readme-stats.vercel.app/api?username=cloudQuest7&show_icons=true&hide_border=true&theme=github_dark&bg_color=161b22&icon_color=6e40c9&title_color=6e40c9&text_color=ffffff&hide_title=true&cache_seconds=1800`}
             alt="GitHub Stats"
+            width={495}
+            height={195}
             className="w-full h-auto"
+            unoptimized
+            priority
           />
               </div>
             </motion.div>
@@ -330,10 +346,14 @@ export default function SkillsSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#2D1141]/20 via-[#6e40c9]/20 to-[#2D1141]/20 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
-          <img
-            src={`https://github-readme-streak-stats.herokuapp.com?user=cloudQuest7&theme=github-dark-blue&hide_border=true&background=161b22&stroke=6e40c9&ring=6e40c9&fire=6e40c9&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=6e40c9&sideLabels=6e40c9&dates=ffffff`}
+           <Image
+            src={`https://github-readme-streak-stats.herokuapp.com?user=cloudQuest7&theme=github-dark-blue&hide_border=true&background=161b22&stroke=6e40c9&ring=6e40c9&fire=6e40c9&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=6e40c9&sideLabels=6e40c9&dates=ffffff&cache_seconds=1800`}
             alt="GitHub Streak Stats"
+            width={495}
+            height={195}
             className="w-full h-auto"
+            unoptimized
+            priority
           />
               </div>
             </motion.div>
@@ -364,10 +384,14 @@ export default function SkillsSection() {
               {/* Activity calendar */}
               <div className="relative group/calendar">
           {/* GitHub contribution tiles */}
-          <img
+          <Image
             src="https://ghchart.rshah.org/2D1141/cloudQuest7"
             alt="GitHub Contribution Calendar"
+            width={1000}
+            height={170}
             className="w-full h-auto filter brightness-110"
+            unoptimized
+            priority
           />
           
           {/* Hover glow effect */}
