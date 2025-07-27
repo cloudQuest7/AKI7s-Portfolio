@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
-import styles from './EventsSection.module.css';
+import { useRef, useEffect, useState} from 'react';
+import { useIntersectionObserver } from '@/utils/useIntersectionObserver';
 
 // Event interface
 interface Event {
@@ -25,31 +25,18 @@ const events: Event[] = [
 ];
 
 // Slider component for each row
-const InfiniteSlider = ({ direction = 1, speed =60  }: { direction?: number; speed?: number }) => {
+const InfiniteSlider = ({ direction = 1, speed = 20 }: { direction?: number; speed?: number }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const positionRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | undefined>(undefined);
   const previousTimeRef = useRef<number | undefined>(undefined);
-  const [sliderWidth, setSliderWidth] = useState(0);
-  const transitionRef = useRef<number>(1);
-
-  // Update slider width on mount and resize
-  useEffect(() => {
-    const updateWidth = () => {
-      if (sliderRef.current) {
-        setSliderWidth(sliderRef.current.scrollWidth / 2);
-      }
-    };
-
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+  const {isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+  // const { elementRef, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
 
   useEffect(() => {
     const slider = sliderRef.current;
-    if (!slider || !sliderWidth) return;
+    if (!slider) return;
 
     const animate = (currentTime: number) => {
       if (!previousTimeRef.current) {
@@ -57,27 +44,24 @@ const InfiniteSlider = ({ direction = 1, speed =60  }: { direction?: number; spe
       }
       
       const deltaTime = Math.min(currentTime - previousTimeRef.current, 50);
-      previousTimeRef.current = currentTime;      if (!isPaused) {
-        // Smoother speed calculation
-        const pixelsPerSecond = speed * 0.4; // Slightly slower speed for better clarity
+      previousTimeRef.current = currentTime;
+
+      if (!isPaused && isIntersecting) {
+        const pixelsPerSecond = speed * 0.5;
         const frameSpeed = (pixelsPerSecond * deltaTime) / 16.667;
         
-        // Smooth transition when pausing/resuming
-        transitionRef.current = Math.min(1, transitionRef.current + 0.015);
-        const easedSpeed = frameSpeed * transitionRef.current;
-        
-        positionRef.current = (positionRef.current + direction * easedSpeed) % sliderWidth;
-        
-        // Handle negative positions
-        if (positionRef.current < 0) {
-          positionRef.current = sliderWidth + positionRef.current;
+        // Use transform instead of marginLeft for better performance
+        const newPosition = positionRef.current + (direction * frameSpeed);
+
+        positionRef.current += direction * frameSpeed;
+
+        if (direction > 0 && positionRef.current >= slider.scrollWidth / 2) {
+          positionRef.current = 0;
+        } else if (direction < 0 && positionRef.current <= 0) {
+          positionRef.current = slider.scrollWidth / 2;
         }
 
-        // Use transform3d without blur effect
         slider.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`;
-      } else {
-        // Smooth transition when pausing
-        transitionRef.current = Math.max(0, transitionRef.current - 0.015);
       }
 
       animationFrameIdRef.current = requestAnimationFrame(animate);
@@ -90,35 +74,31 @@ const InfiniteSlider = ({ direction = 1, speed =60  }: { direction?: number; spe
         cancelAnimationFrame(animationFrameIdRef.current);
       }
     };
-  }, [direction, speed, isPaused, sliderWidth]);
+  }, [direction, speed, isPaused]);
 
-  return (    <div 
-      className="overflow-hidden relative group"
+  return (
+    <div 
+      className="overflow-hidden relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Edge gradients for smooth transition effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0d1117] to-transparent z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0d1117] to-transparent z-10" />
-        <div
+      <div
         ref={sliderRef}
-        className={`flex gap-6 py-4 whitespace-nowrap transform w-fit will-change-transform transition-[filter] duration-300 ${styles.sliderContainer}`}
+        className="flex gap-4 py-4 whitespace-nowrap transform w-fit will-change-transform slider-container"
       >
         {/* Double the events for seamless loop */}
         {[...events, ...events].map((event, index) => (
           <div
             key={`${event.id}-${index}`}
-            className="relative w-72 h-48 rounded-xl overflow-hidden group/card shadow-lg shadow-purple-500/5 transition-transform duration-300 hover:scale-[1.02]"
+            className="relative w-72 h-48 rounded-xl overflow-hidden group eventCard"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50 z-[1] opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
             <Image
               src={event.image}
               alt={event.alt}
               fill
-              className="object-cover transition-all duration-500 group-hover/card:scale-110 group-hover/card:brightness-110"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
               priority={index < 6} // Prioritize loading first 6 images
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={90}
             />
           </div>
         ))}
@@ -153,9 +133,10 @@ const EventsSection = () => {
 
         {/* Event Sliders */}
         <div className="space-y-8">
-          {/* First row - moves right */}          <InfiniteSlider direction={1} speed={2} />
+          {/* First row - moves right */}
+          <InfiniteSlider direction={1} speed={5} />
           {/* Second row - moves left */}
-          <InfiniteSlider direction={-1} speed={2} />
+          <InfiniteSlider direction={-1} speed={5} />
         </div>
       </div>
     </section>

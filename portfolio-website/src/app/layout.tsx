@@ -22,7 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="msapplication-TileColor" content="#0d1117" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
@@ -30,7 +31,7 @@ export default function RootLayout({
         {/* Galactic background with higher z-index than -10 */}
         <GalacticBackground />
         <NavBar />
-        <main className="pt-16 min-h-screen relative z-10 overflow-x-hidden">
+        <main className="pt-16 min-h-screen relative z-10">
           {children}
         </main>
         <div id="portal-root" />

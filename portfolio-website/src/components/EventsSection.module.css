@@ -1,8 +1,6 @@
 .sliderContainer {
   overflow: hidden;
   position: relative;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  mask-image: radial-gradient(white, black);
 }
 
 .slider {
@@ -14,8 +12,6 @@
   will-change: transform;
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
-  transition: transform 0.1s linear;
-  touch-action: pan-y pinch-zoom;
 }
 
 .sliderItem {

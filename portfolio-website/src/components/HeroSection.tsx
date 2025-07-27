@@ -308,7 +308,8 @@ const HeroSection = () => {
             </motion.h1>
 
             {/* Role switcher */}
-            <motion.div className="relative h-16 mb-8">              <AnimatePresence>
+            <motion.div className="relative h-16 mb-8">
+              <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedCharacter}
                   initial={{ y: 20, opacity: 0 }}
@@ -344,7 +345,7 @@ const HeroSection = () => {
                     View Projects
                   </motion.a>
                   <motion.a
-                    href="https://drive.google.com/file/d/1TTyx-i0Ifj3Umd-cs6SsAYER5K0VTsj-/view"
+                    href="https://drive.google.com/file/d/16vR3zHu03cvr8bXSqMiEEmHRirgzB4hV/view"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 
